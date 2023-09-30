@@ -1,24 +1,34 @@
+let computer_result;
+player = 0;
+computer = 0;
+
+const buttons = document.querySelectorAll('button');
+
 function getComputerChoice(){
     const myArray = ['rock','paper','scissor'];  
     const computer_result = myArray[Math.floor(Math.random() * myArray.length)];  
-    // console.log(computer_result);  
     return computer_result;
 };
 
 function playerSelection(){
-    const myArray = ['rock','paper','scissor'];  
-    const player_result = myArray[Math.floor(Math.random() * myArray.length)];  
-    // console.log(player_result);  
-    return player_result;
-
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            player_result = button.innerHTML;
+            console.log('player',player_result);
+            playRound(player_result,computer_result);
+            if (player === 5 || computer === 5){
+                winner();
+            };
+        });
+      });
 };
 
-player = 0;
-computer = 0;
+playerSelection();
 
-function playRound() {
+
+
+function playRound(player_result,computer_result) {
         
-    player_result = playerSelection()
     computer_result = getComputerChoice()
     console.log('saved player result',player_result)
     console.log('saved computer result',computer_result)
@@ -34,33 +44,35 @@ function playRound() {
     } 
     else if (player_result === computer_result){
         console.log('tie')
-        playRound();
     }else{
         computer+=1;
     }
   };
 
 
-function game(){
-    for (i=0; i<100; i++){
-        playRound();
-        if (player === 5 || computer === 5){
-            break;
-        };
-    };
-
+function winner(){
     console.log('You = ',player)
     console.log('Computer = ',computer)
     if (player>computer){
-        console.log("you are the winner")
+        print= "you are the winner";
+        document.querySelector('h2').innerHTML = print;
+        console.log("you are the winner");
     }
     else if (player===computer){
         console.log('draw')
     }else{
+        print= "you lose";
+        document.querySelector('h2').innerHTML = print;
         console.log('You lose')
     }
+    player = 0;
+    computer = 0;
 
-
+    // var x = document.createElement("BUTTON");
+    // var t = document.createTextNode("TRY AGAIN");
+    // x.appendChild(t);
+    // document.body.appendChild(x);
+    // t.addEventListener('click',()=>{
+        
+    // })
 };
-
-game();
